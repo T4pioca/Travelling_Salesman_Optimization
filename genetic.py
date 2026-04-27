@@ -66,7 +66,8 @@ class GeneticAlgorithm:
     def selection(self):
         selections = [self.ranked_population[i][0] for i in range(self.elites_num)]
         if self.roulette_selection:
-            df = pd.DataFrame(np.array(self.ranked_population), columns=["index", "fitness"])
+            # Create DataFrame directly from ranked_population without np.array conversion
+            df = pd.DataFrame(self.ranked_population, columns=["route", "fitness"])
             self.average_path_cost = sum(1 / df.fitness) / len(df.fitness)
             df['cum_sum'] = df.fitness.cumsum()
             df['cum_perc'] = 100 * df.cum_sum / df.fitness.sum()
